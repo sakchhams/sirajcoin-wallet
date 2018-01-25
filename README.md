@@ -2,6 +2,10 @@
 
 > A GUI wallet application for SirajCoin(SRJ) made with electron, polymer and lots of love.
 
+Screenshot 1               |  Screenshot 2
+:-------------------------:|:-------------------------:
+![Application Screenshot](https://github.com/sakchhams/sirajcoin-wallet/raw/master/screenshots/Screenshot~2018-01-26~02-17-57.png)  |  ![Application Screenshot](https://github.com/sakchhams/sirajcoin-wallet/raw/master/screenshots/Screenshot~2018-01-26~02-19-22.png)
+
 ## Build
 
 Follow the following steps in order:
