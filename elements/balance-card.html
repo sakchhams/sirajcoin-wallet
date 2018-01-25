@@ -1,0 +1,81 @@
+
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<dom-module id="info-card">
+  <template>
+
+    <style>
+      .card-contents {
+        margin-left: 56px;
+      }
+
+      .card-actions {
+        @apply --layout-horizontal;
+        @apply --layout-end-justified;
+      }
+
+    </style>
+
+    <paper-card image="elements/balance-card/wallet-image-small.jpg">
+
+      <div class="card-contents">
+
+        <p><b>Address:</b> [[address]]</p>
+        <p><b>Balance:</b> [[balance]] SRJ</p>
+        <paper-toast id="toast" text="Refreshing."><paper-toast>
+        <paper-toast id="error_toast" text="Error: [[error]]"><paper-toast>
+      </div>
+
+      <div class="card-actions">
+        <paper-icon-button icon="icons:refresh" on-click="refresh">Refresh</paper-icon-button>
+      </div>
+
+    </paper-card>
+
+  </template>
+
+  <script>
+    class InfoElement extends Polymer.Element {
+      static get is() { return "info-card"; }
+
+      static get properties() {
+        return {
+          address: String,
+          error: String,
+          balance: {
+            type: Number,
+            value: 0
+          }
+        }
+      }
+
+      constructor() {
+        super()
+        this.refresh()
+      }
+
+      onError(message) {
+        this.error = message
+        try {
+          this.$.error_toast.show()
+        } catch (err) {
+          console.log(`balance-card: encountered error but could not show toast.`)
+        }
+      }
+
+      refresh() {
+        try {
+          this.$.toast.show()
+        } catch(err) {
+          console.log('refreshing.')
+        }
+        walletInfo(this)
+      }
+    }
+
+    customElements.define(InfoElement.is, InfoElement);
+  </script>
+
+</dom-module>

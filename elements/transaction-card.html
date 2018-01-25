@@ -1,0 +1,134 @@
+
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<dom-module id="transaction-card">
+  <template>
+
+    <style>
+      paper-card {
+        width: 100%
+      }
+
+      .card-contents {
+        margin-left: 56px;
+      }
+
+      .card-header {
+        padding-left: 56px;
+        padding-top: 8px;
+      }
+
+      paper-input {
+        width: 350px;
+      }
+
+      span.input-icon {
+        margin-right: 8px;
+      }
+
+      .card-actions {
+        @apply --layout-horizontal;
+        @apply --layout-end-justified;
+      }
+    </style>
+
+    <paper-card>
+
+      <div class="card-header">
+        <h2>Send Coins</h2>
+      </div>
+
+      <div class="card-contents">
+
+        <p>
+          <paper-input label="address" value="{{address}}" >
+            <span class="input-icon" slot="prefix">
+              <iron-icon icon="icons:account-balance-wallet" slot="prefix"></iron-icon>
+            </span>
+          </paper-input>
+        </p>
+        <p>
+          <paper-input label="amount" type="number" value="{{amount}}">
+            <span class="input-icon" slot="prefix">
+              <iron-icon icon="icons:euro-symbol" slot="prefix"></iron-icon>
+            </span>
+          </paper-input>
+        </p>
+
+      </div>
+
+      <div class="card-actions">
+        <paper-icon-button icon="icons:send" on-click="sendCoins"></paper-icon-button>
+      </div>
+      <paper-toast id="error_toast" text="[[error]]"></paper-toast>
+      <paper-toast id="info_toast" text="[[info]]"></paper-toast>
+    </paper-card>
+
+  </template>
+  
+  <script>
+    class TransactionElement extends Polymer.Element {
+      static get is() { return "transaction-card"; }
+
+      static get properties() {
+        return {
+          inProgress: {
+            type: Boolean,
+            value: false
+          },
+          info: String,
+          error: String,
+          address: String,
+          amount: {
+            type: Number,
+            value: 0
+          }
+        }
+      }
+
+      constructor() {
+        super()
+      }
+
+      onError(message) {
+        this.error = message
+        this.inProgress = false
+        try {
+          this.$.error_toast.show()
+        } catch (err) {
+          console.log(`Error: ${err.message}`)
+        }
+      }
+
+      updateInfo(message) {
+        this.info = message
+        try {
+          this.$.info_toast.show()
+        } catch (err) {
+          console.log(`Error: ${err.message}`)
+        }
+      }
+
+      sendCoins() {
+        if(!this.inProgress) {
+          this.inProgress = true
+          this.updateInfo('Sending ...')
+          transfer(this, this.address, this.amount)
+        }
+      }
+
+      onSent() {
+        updateInfo('Successfully sent.')
+        this.inProgress = false
+      }
+
+    }
+
+    customElements.define(TransactionElement.is, TransactionElement);
+  </script>
+
+</dom-module>

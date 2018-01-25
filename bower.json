@@ -1,0 +1,30 @@
+{
+  "name": "sirajcoin-wallet",
+  "authors": [
+    "Sakchham Sharma"
+  ],
+  "private": true,
+  "dependencies": {
+    "app-layout": "PolymerElements/app-layout",
+    "iron-icons": "PolymerElements/iron-icons",
+    "paper-icon-button": "PolymerElements/paper-icon-button",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.1",
+    "iron-image": "PolymerElements/iron-image",
+    "paper-styles": "PolymerElements/paper-styles",
+    "polymer": "Polymer/polymer#2.0.2",
+    "paper-card": "PolymerElements/paper-card#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.1.0",
+    "paper-toast": "PolymerElements/paper-toast#^2.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "polymer/polymer#^2.0.2"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^1.0.19",
+        "polymer": "^2.0.2"
+      }
+    }
+  }
+}

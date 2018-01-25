@@ -1,0 +1,84 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="balance-card.html">
+<link rel="import" href="transaction-card.html">
+
+<dom-module id="wallet-app">
+  <template>
+    <style>
+
+      app-header {
+        background-color: #3F51B5;
+        color: #fff;
+      }
+
+      paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+        background: --paper-grey-200;
+      }
+
+      .container {
+        padding: 16px;
+      }
+
+      .flex-vertical {
+        @apply --layout-vertical;
+      }
+
+      span.spacer {
+        height: 16px;
+      }
+
+    </style>
+
+    <app-drawer-layout>
+
+      <app-drawer slot="drawer">
+        <!-- It feels so empty down here -->
+      </app-drawer>
+
+      <app-header-layout>
+
+        <app-header slot="header" reveals effects="waterfall">
+
+          <app-toolbar>
+            <paper-icon-button icon="menu"></paper-icon-button>
+            <div main-title>Sirajcoin Wallet</div>
+          </app-toolbar>
+
+        </app-header>
+
+      </app-header-layout>
+
+      <div class="container flex-vertical">
+        <info-card></info-card>
+        <span class="spacer"></span>
+        <transaction-card></transaction-card>
+      </div>
+
+    </app-drawer-layout>
+
+  </template>
+
+  <script src="wallet.js" type="text/javascript"></script>
+  <script>
+    class WalletAppElement extends Polymer.Element {
+      static get is() { return "wallet-app"; }
+    }
+    customElements.define(WalletAppElement.is, WalletAppElement);
+  </script>
+
+</dom-module>
